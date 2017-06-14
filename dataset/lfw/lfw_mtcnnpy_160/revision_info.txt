@@ -1,0 +1,4 @@
+arguments: /home/wing/DL/face_recogniiton_facenet/facenet/src/align/align_dataset_mtcnn.py /home/wing/DL/face_recogniiton_facenet/dataset/lfw/raw /home/wing/DL/face_recogniiton_facenet/dataset/lfw/lfw_mtcnnpy_160 --image_size 160 --margin 32 --random_order --gpu_memory_fraction 0.5
+--------------------
+git hash: e6c92c1b069d81483ad40680e0427ae0289e9204
+--------------------
