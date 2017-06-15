@@ -20,7 +20,11 @@ def main(args):
     dest = data_dir+'/'+args.database_name
     if args.database_name not in subdirs:
 	os.mkdir(dest)
-    
+    dest+='/'+args.subject_name
+    if not os.path.isdir(dest):
+	os.mkdir(dest)
+
+
     # 0:default camera, 1:external camera, can stubstitue with file_name for video clip   
     cam = cv2.VideoCapture(0)
     count = 0
@@ -55,5 +59,5 @@ if __name__ == '__main__':
     print "Camera initiating..."
     main(parse_arguments(sys.argv[1:]))
     end=time.time()
-    volume = sys.argv[3] if len(sys.argv)>3	 else '50'
-    print "Average: %f per photo" % ((end-start)/volume)
+    volume = sys.argv[3] if len(sys.argv)>3 else '50'
+    print "Average: %f per photo" % ((end-start)/float(volume))
