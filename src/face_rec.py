@@ -17,6 +17,8 @@ def main(args):
 	factor = 0.709
 	turn = True
 	cam = cv2.VideoCapture(0)
+	fourcc = cv2.VideoWriter_fourcc(*'XVID')
+	out = cv2.VideoWriter('output.avi',fourcc, 30.0, (640,480))
 
 	with tf.Graph().as_default():
 		print "Setting GPU options..."        
@@ -77,7 +79,7 @@ def main(args):
 			best_class_prob = predictions[np.arange(len(best_class)), best_class]
 
 			# default threshold: 0.55
-			threshold_prob = 0.55				
+			threshold_prob = 0.80				
 			
 			for i in range(num_of_faces):
 				name = "Unknown"
@@ -85,13 +87,14 @@ def main(args):
 					name = classnames[best_class[i]]
 				prob = best_class_prob[i]
 				cv2.rectangle(frame, (bb[i,0],bb[i,1]), (bb[i,2],bb[i,3]), (0,0,255), 2)
-				cv2.putText(frame, name+','+str(round(prob*100,2))+'%', (bb[i,0],bb[i,1]-12), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255,255,255), 0.8)
+				cv2.putText(frame, name+','+str(round(prob*100,2))+'%', (bb[i,0],bb[i,1]-12), cv2.FONT_HERSHEY_DUPLEX, 0.5, (255,255,255), 1)
 		cv2.imshow('Recording', frame)
-
+		out.write(frame)
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
 	print "Ended."
 	cam.release()
+	out.release()
 	cv2.destroyAllWindows
 
 
