@@ -16,9 +16,13 @@ import align.detect_face as df
 
 def main(args):
     data_dir = os.path.dirname(os.path.realpath(__file__))
-    subdirs = [d for d in os.listdir('.') if os.path.isdir(d)]
-    dest = data_dir+'/'+args.database_name
-    if args.database_name not in subdirs:
+    data_dir_split=data_dir.split("/")
+    facenet_dir=data_dir_split[:len(data_dir_split)-1]
+    facenet_dir.append("dataset")
+    dataset_dir="/".join(facenet_dir)
+    dest = dataset_dir+'/'+args.database_name
+    print dest
+    if not os.path.isdir(dest):
 	os.mkdir(dest)
     dest+='/'+args.subject_name
     if not os.path.isdir(dest):
